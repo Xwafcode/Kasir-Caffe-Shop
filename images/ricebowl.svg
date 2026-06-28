@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="Beef Rice Bowl">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f6f0eb"/>
+      <stop offset="1" stop-color="#dfd4ca"/>
+    </linearGradient>
+    <linearGradient id="bowl" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#8ca2aa"/>
+      <stop offset="1" stop-color="#556a72"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#2a2926" flood-opacity=".17"/>
+    </filter>
+  </defs>
+  <rect width="640" height="480" fill="url(#bg)"/>
+  <circle cx="112" cy="392" r="132" fill="#8b6c58" opacity=".12"/>
+  <g filter="url(#shadow)">
+    <ellipse cx="320" cy="350" rx="168" ry="28" fill="#b7ada4"/>
+    <path d="M188 234h264c-13 80-67 128-132 128s-119-48-132-128z" fill="url(#bowl)"/>
+    <ellipse cx="320" cy="234" rx="132" ry="44" fill="#f7f1e7"/>
+    <path d="M226 224c27-54 66-82 100-82 48 0 83 32 108 82-42 18-80 13-115-14-31 26-62 31-93 14z" fill="#7b4e39"/>
+    <path d="M244 222c28 16 57 11 86-16 32 26 62 31 91 16" fill="none" stroke="#b97952" stroke-width="13" stroke-linecap="round" opacity=".75"/>
+    <circle cx="268" cy="214" r="16" fill="#fff9ed"/>
+    <circle cx="320" cy="200" r="18" fill="#fff9ed"/>
+    <circle cx="374" cy="216" r="16" fill="#fff9ed"/>
+    <path d="M260 170l-32-45M388 172l42-40" stroke="#5c6b50" stroke-width="12" stroke-linecap="round"/>
+    <path d="M224 126c20-7 39-4 57 10-22 7-41 4-57-10zM430 132c22-7 42-4 60 12-24 7-44 3-60-12z" fill="#6e8c55"/>
+  </g>
+  <text x="320" y="428" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="650" fill="#625045">Beef Rice Bowl</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="Cheesecake">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fbf3e8"/>
+      <stop offset="1" stop-color="#ead9be"/>
+    </linearGradient>
+    <linearGradient id="cheese" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff2bf"/>
+      <stop offset="1" stop-color="#e8c676"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#4b331a" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect width="640" height="480" fill="url(#bg)"/>
+  <circle cx="112" cy="392" r="132" fill="#c99b62" opacity=".12"/>
+  <g filter="url(#shadow)">
+    <ellipse cx="320" cy="352" rx="160" ry="28" fill="#c4ad8c"/>
+    <path d="M182 286l280-88-20 88-254 66z" fill="url(#cheese)"/>
+    <path d="M182 286l280-88-62-42-250 80z" fill="#fff4c7"/>
+    <path d="M188 352l254-66-24 42-226 58z" fill="#b78348"/>
+    <path d="M250 244c38 16 83 14 135-5" stroke="#e4bd73" stroke-width="9" stroke-linecap="round" opacity=".62"/>
+    <circle cx="394" cy="162" r="22" fill="#c94f5d"/>
+    <path d="M384 148c7-10 18-13 31-9" stroke="#7fa05d" stroke-width="8" stroke-linecap="round"/>
+    <path d="M208 297c70-10 143-30 218-62" stroke="#ffffff" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+  </g>
+  <text x="320" y="428" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="650" fill="#977044">Cheesecake</text>
+</svg>

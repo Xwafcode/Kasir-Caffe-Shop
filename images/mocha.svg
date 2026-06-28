@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="Mocha">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f4eeeb"/>
+      <stop offset="1" stop-color="#e4d4ce"/>
+    </linearGradient>
+    <linearGradient id="drink" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#a57767"/>
+      <stop offset="1" stop-color="#5c382f"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#33201b" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <rect width="640" height="480" fill="url(#bg)"/>
+  <circle cx="530" cy="92" r="112" fill="#7b5a52" opacity=".15"/>
+  <g filter="url(#shadow)">
+    <ellipse cx="320" cy="352" rx="150" ry="26" fill="#c3b2ad"/>
+    <path d="M220 122h200l-22 236H242z" fill="#fbf6f2" stroke="#ffffff" stroke-width="9"/>
+    <path d="M246 168h148l-16 170H262z" fill="url(#drink)"/>
+    <ellipse cx="320" cy="168" rx="74" ry="20" fill="#8b5b4d"/>
+    <path d="M266 194c22-18 44-18 66-2 18 13 37 13 58-1v38c-22 15-43 16-63 4-20-12-40-11-61 5z" fill="#ead9d2"/>
+    <path d="M284 190c10-10 22-10 36 0 14-10 27-10 40 0-12 11-25 16-39 16s-26-5-37-16z" fill="#fff7f3"/>
+    <path d="M290 138h60" stroke="#ffffff" stroke-width="13" stroke-linecap="round" opacity=".78"/>
+    <circle cx="364" cy="184" r="12" fill="#f5ebe5" opacity=".9"/>
+  </g>
+  <text x="320" y="428" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="650" fill="#66473f">Mocha</text>
+</svg>

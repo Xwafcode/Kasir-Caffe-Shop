@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kasir CafeShop</title>
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <img class="brand-mark" src="images/logo.svg" alt="CafeShop POS" />
+          <div>
+            <strong>CafeShop POS</strong>
+            <span>Kasir dan laporan</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Navigasi utama">
+          <button class="nav-link active" data-view="cashier">
+            <span class="nav-icon">01</span>
+            Kasir
+          </button>
+          <button class="nav-link" data-view="transactions">
+            <span class="nav-icon">02</span>
+            Transaksi
+          </button>
+          <button class="nav-link" data-view="shift">
+            <span class="nav-icon">03</span>
+            Shift
+          </button>
+          <button class="nav-link" data-view="admin">
+            <span class="nav-icon">04</span>
+            Admin
+          </button>
+        </nav>
+
+        <div class="sidebar-note">
+          <span id="shiftStatusDot" class="status-dot"></span>
+          <div>
+            <strong id="shiftStatusText">Shift belum dibuka</strong>
+            <span id="shiftStatusMeta">Buka shift untuk mulai mencatat penjualan.</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h1 id="pageTitle">Menu Kasir</h1>
+            <p id="pageSubtitle">Pilih produk, cek keranjang, dan selesaikan pembayaran.</p>
+          </div>
+          <div class="topbar-actions">
+            <div class="time-chip" id="clock">--:--</div>
+            <button class="ghost-button" id="quickOpenShift">Buka Shift</button>
+          </div>
+        </header>
+
+        <section class="view active" id="cashierView" aria-labelledby="cashierTitle">
+          <div class="cashier-layout">
+            <section class="workspace" aria-labelledby="cashierTitle">
+              <div class="section-heading">
+                <div>
+                  <h2 id="cashierTitle">Menu Kasir</h2>
+                  <p>Produk aktif, kategori, dan stok tersisa.</p>
+                </div>
+                <div class="toolbar">
+                  <label class="input-wrap search-wrap">
+                    <span>Cari</span>
+                    <input id="menuSearch" type="search" placeholder="Nama menu" autocomplete="off" />
+                  </label>
+                </div>
+              </div>
+
+              <div class="category-tabs" id="categoryTabs" aria-label="Kategori menu"></div>
+              <div class="product-grid" id="productGrid"></div>
+            </section>
+
+            <aside class="cart-panel" aria-labelledby="cartTitle">
+              <div class="cart-header">
+                <div>
+                  <h2 id="cartTitle">Pesanan</h2>
+                  <p id="ticketNumber">Tiket baru</p>
+                </div>
+                <button class="icon-button" id="clearCart" title="Kosongkan keranjang" aria-label="Kosongkan keranjang">x</button>
+              </div>
+
+              <div class="field-grid two">
+                <label class="input-wrap">
+                  <span>Kasir</span>
+                  <input id="cashierName" type="text" value="Kasir 1" />
+                </label>
+                <label class="input-wrap">
+                  <span>Meja</span>
+                  <input id="tableNumber" type="text" placeholder="A1" />
+                </label>
+              </div>
+
+              <label class="input-wrap">
+                <span>Pelanggan</span>
+                <input id="customerName" type="text" placeholder="Walk-in" />
+              </label>
+
+              <div class="segmented" id="orderTypeTabs" aria-label="Tipe pesanan">
+                <button class="active" data-order-type="Dine-in">Dine-in</button>
+                <button data-order-type="Takeaway">Takeaway</button>
+                <button data-order-type="Delivery">Delivery</button>
+              </div>
+
+              <div class="cart-items" id="cartItems"></div>
+
+              <div class="summary">
+                <div><span>Subtotal</span><strong id="subtotalText">Rp0</strong></div>
+                <div>
+                  <span>Diskon</span>
+                  <label class="inline-input">
+                    <input id="discountInput" type="number" min="0" step="1000" value="0" />
+                  </label>
+                </div>
+                <div><span>Service 5%</span><strong id="serviceText">Rp0</strong></div>
+                <div><span>PPN 10%</span><strong id="taxText">Rp0</strong></div>
+                <div class="summary-total"><span>Total</span><strong id="totalText">Rp0</strong></div>
+              </div>
+
+              <div class="field-grid two">
+                <label class="input-wrap">
+                  <span>Bayar dengan</span>
+                  <select id="paymentMethod">
+                    <option value="Tunai">Tunai</option>
+                    <option value="QRIS">QRIS</option>
+                    <option value="Kartu Debit">Kartu Debit</option>
+                    <option value="Transfer">Transfer</option>
+                  </select>
+                </label>
+                <label class="input-wrap">
+                  <span>Diterima</span>
+                  <input id="paidInput" type="number" min="0" step="1000" value="0" />
+                </label>
+              </div>
+
+              <div class="change-line">
+                <span>Kembalian</span>
+                <strong id="changeText">Rp0</strong>
+              </div>
+
+              <button class="primary-button" id="checkoutButton">Simpan Transaksi</button>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" id="transactionsView" aria-labelledby="transactionsTitle">
+          <div class="section-heading">
+            <div>
+              <h2 id="transactionsTitle">Rekapan Transaksi</h2>
+              <p>Filter transaksi, lihat metode bayar, dan cetak struk.</p>
+            </div>
+            <button class="ghost-button" id="exportTransactions">Export CSV</button>
+          </div>
+
+          <div class="filter-bar">
+            <label class="input-wrap">
+              <span>Dari</span>
+              <input id="filterStart" type="date" />
+            </label>
+            <label class="input-wrap">
+              <span>Sampai</span>
+              <input id="filterEnd" type="date" />
+            </label>
+            <label class="input-wrap">
+              <span>Metode</span>
+              <select id="filterPayment">
+                <option value="Semua">Semua</option>
+                <option value="Tunai">Tunai</option>
+                <option value="QRIS">QRIS</option>
+                <option value="Kartu Debit">Kartu Debit</option>
+                <option value="Transfer">Transfer</option>
+              </select>
+            </label>
+            <label class="input-wrap grow">
+              <span>Cari</span>
+              <input id="transactionSearch" type="search" placeholder="Tiket, kasir, pelanggan" />
+            </label>
+          </div>
+
+          <div class="metric-grid" id="transactionMetrics"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tiket</th>
+                  <th>Waktu</th>
+                  <th>Pelanggan</th>
+                  <th>Item</th>
+                  <th>Bayar</th>
+                  <th>Total</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="transactionTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="view" id="shiftView" aria-labelledby="shiftTitle">
+          <div class="section-heading">
+            <div>
+              <h2 id="shiftTitle">Laporan Shift</h2>
+              <p>Rekap harian dibuat saat tutup kasir.</p>
+            </div>
+          </div>
+
+          <div class="shift-grid">
+            <section class="tool-panel">
+              <h3>Kontrol Shift</h3>
+              <div class="field-grid two">
+                <label class="input-wrap">
+                  <span>Nama kasir</span>
+                  <input id="shiftCashier" type="text" value="Kasir 1" />
+                </label>
+                <label class="input-wrap">
+                  <span>Modal kas</span>
+                  <input id="openingCash" type="number" min="0" step="1000" value="500000" />
+                </label>
+              </div>
+              <label class="input-wrap">
+                <span>Pengeluaran shift</span>
+                <input id="shiftExpenses" type="number" min="0" step="1000" value="0" />
+              </label>
+              <label class="input-wrap">
+                <span>Catatan</span>
+                <textarea id="shiftNotes" rows="4" placeholder="Stok habis, koreksi kas, atau catatan operasional"></textarea>
+              </label>
+              <div class="button-row">
+                <button class="primary-button" id="openShiftButton">Buka Shift</button>
+                <button class="danger-button" id="closeShiftButton">Tutup Kasir</button>
+              </div>
+            </section>
+
+            <section class="tool-panel">
+              <h3>Rekap Hari Ini</h3>
+              <div class="daily-report" id="dailyReport"></div>
+            </section>
+          </div>
+
+          <div class="section-heading compact">
+            <div>
+              <h2>Riwayat Tutup Kasir</h2>
+              <p>Totalan tersimpan per shift dan per hari.</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Kasir</th>
+                  <th>Transaksi</th>
+                  <th>Penjualan</th>
+                  <th>Tunai Sistem</th>
+                  <th>Kas Akhir</th>
+                </tr>
+              </thead>
+              <tbody id="shiftTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="view" id="adminView" aria-labelledby="adminTitle">
+          <div class="section-heading">
+            <div>
+              <h2 id="adminTitle">Menu Admin</h2>
+              <p>Pendapatan bulanan, menu terlaris, dan pengelolaan menu.</p>
+            </div>
+            <button class="ghost-button" id="resetDemo">Reset Demo</button>
+          </div>
+
+          <div class="admin-grid">
+            <section class="tool-panel">
+              <h3>Total Pendapatan Bulanan</h3>
+              <div class="month-chart" id="monthlyRevenue"></div>
+            </section>
+            <section class="tool-panel">
+              <h3>Menu Paling Sering Dibeli</h3>
+              <div class="popular-list" id="popularItems"></div>
+            </section>
+          </div>
+
+          <div class="admin-grid">
+            <section class="tool-panel">
+              <div class="panel-title-row">
+                <h3 id="menuFormTitle">Tambah Menu</h3>
+                <span class="status-pill soft" id="menuFormMode">Baru</span>
+              </div>
+              <form id="menuForm">
+                <div class="field-grid two">
+                  <label class="input-wrap">
+                    <span>Nama</span>
+                    <input id="menuName" type="text" required />
+                  </label>
+                  <label class="input-wrap">
+                    <span>Kategori</span>
+                    <select id="menuCategory">
+                      <option>Kopi</option>
+                      <option>Non Kopi</option>
+                      <option>Makanan</option>
+                      <option>Dessert</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="field-grid two">
+                  <label class="input-wrap">
+                    <span>Harga</span>
+                    <input id="menuPrice" type="number" min="0" step="1000" required />
+                  </label>
+                  <label class="input-wrap">
+                    <span>Stok</span>
+                    <input id="menuStock" type="number" min="0" step="1" required />
+                  </label>
+                </div>
+                <label class="input-wrap">
+                  <span>Gambar</span>
+                  <div class="image-uploader">
+                    <div class="image-preview" id="menuImagePreview">
+                      <span>Preview</span>
+                    </div>
+                    <div class="image-actions">
+                      <input id="menuImage" type="file" accept="image/*" />
+                      <button class="ghost-button" id="clearMenuImage" type="button">Hapus Gambar</button>
+                    </div>
+                  </div>
+                </label>
+                <div class="button-row">
+                  <button class="primary-button" id="menuSubmitLabel" type="submit">Simpan Menu</button>
+                  <button class="ghost-button is-hidden" id="cancelMenuEdit" type="button">Batal Edit</button>
+                </div>
+              </form>
+            </section>
+
+            <section class="tool-panel">
+              <h3>Daftar Menu</h3>
+              <div class="menu-admin-list" id="menuAdminList"></div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <dialog id="receiptDialog">
+      <div class="dialog-head">
+        <h3>Struk Transaksi</h3>
+        <button class="icon-button" id="closeReceipt" aria-label="Tutup struk">x</button>
+      </div>
+      <div id="receiptContent" class="receipt"></div>
+      <div class="button-row end">
+        <button class="ghost-button" id="printReceipt">Cetak</button>
+      </div>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
